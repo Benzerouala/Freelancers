@@ -21,10 +21,10 @@ export default function Profile() {
             <h2 className="card-title mb-3 text-center">Profil</h2>
             <ul className="list-group list-group-flush mb-3">
               <li className="list-group-item">
-                <strong>Nom :</strong> {user.first_name} {user.last_name || ""}
+                <strong>Nom :</strong> {user.first_name} 
               </li>
               <li className="list-group-item">
-                <strong>Nom :</strong> {user.last_name} {user.last_name || ""}
+                <strong>Nom :</strong> {user.last_name} 
               </li>
               <li className="list-group-item">
                 <strong>Email :</strong> {user.email}

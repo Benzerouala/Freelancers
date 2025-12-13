@@ -2,6 +2,7 @@ import { useState } from "react";
 import { login } from "../api/authApi";
 import { saveAuth } from "../utils/auth";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -25,6 +26,7 @@ export default function Login() {
         justifyContent: "center",
       }}
     >
+      <Navbar/>
       <div className="card shadow p-4" style={{ width: "400px", marginTop: "80px" }}>
         <h3 className="text-center mb-4">Login</h3>
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { register } from "../api/authApi";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -31,8 +32,10 @@ export default function Register() {
         width: "100vw",
         display: "flex",
         justifyContent: "center",
+        marginTop :"12 px"
       }}
     >
+      <Navbar/>
       <div className="card shadow p-4" style={{ width: "450px", marginTop: "40px" }}>
         <h3 className="text-center mb-3">Create Account</h3>
 

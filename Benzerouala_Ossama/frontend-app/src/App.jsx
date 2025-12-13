@@ -7,9 +7,11 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 // Dashboard Pages
 import Clients from "./pages/Clients";
 import Projects from "./pages/Projects";
-import {Tasks} from "./pages/Tasks";
+import Tasks from "./pages/Tasks";
 import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
+import HomePage from "./pages/HomePage";
+import AllProjects from "./pages/AllProjects";
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
       <Routes>
 
         {/* Public pages */}
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/all-projects" element={<AllProjects/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
