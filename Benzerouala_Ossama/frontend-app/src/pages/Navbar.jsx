@@ -23,9 +23,9 @@ export default function Navbar() {
         </Link>
 
         {/* Lien vers le composant AllProjects */}
-        {/* <Link to="/all-projects" style={styles.link}>
+         <Link to="/all-projects" style={styles.link}>
           All Projects
-        </Link> */}
+        </Link> 
       </div>
     </nav>
   );

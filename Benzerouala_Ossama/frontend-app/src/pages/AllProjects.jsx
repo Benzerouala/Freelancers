@@ -1,57 +1,74 @@
-// src/pages/AllProjects.jsx
-import React, { useEffect, useState } from "react";
-import { fetchProjects } from "../api/projectApi"; // ton fichier API
-import Navbar from "../pages/Navbar";
+import { useState, useEffect } from "react";
+import { fetchProjects } from "../api/projectApi";
+import { Card, Row, Col, Spinner, Badge } from "react-bootstrap";
 
 export default function AllProjects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  const getProjects = async () => {
+    try {
+      const res = await fetchProjects();
+      setProjects(res.data);
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      if (err.response?.status === 401) window.location.href = "/login";
+    }
+  };
 
   useEffect(() => {
-    fetchProjects()
-      .then((data) => {
-        setProjects(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError("Erreur lors de la récupération des projets");
-        setLoading(false);
-      });
+    getProjects();
   }, []);
 
-  if (loading) return <p style={{ paddingTop: "80px" }}>Chargement...</p>;
-  if (error) return <p style={{ paddingTop: "80px", color: "red" }}>{error}</p>;
+  const getStatusVariant = (status) => {
+    switch (status) {
+      case "active":
+        return "success";
+      case "paused":
+        return "warning";
+      case "completed":
+        return "danger";
+      default:
+        return "secondary";
+    }
+  };
+
+  if (loading) return <Spinner animation="border" />;
 
   return (
-    <div style={{ paddingTop: "80px", textAlign: "center" }}>
-      <Navbar />
-      <h1>All Projects</h1>
-      {projects.length === 0 ? (
-        <p>Aucun projet trouvé.</p>
-      ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {projects.map((project) => (
-            <li key={project.id} style={styles.projectCard}>
-              <h3>{project.name}</h3>
-              <p>{project.description}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div   >
+      <h3 className="mb-4">Projects</h3>
+
+      <Row xs={1} md={2} lg={3} className="g-4"  style={{
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center",
+      }}>
+        {projects.map((project) => (
+          <Col key={project.id}>
+            <Card className="h-100 shadow-lg border-0">
+              <Card.Body>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <Card.Title className="mb-0">{project.name}</Card.Title>
+                  <Badge bg={getStatusVariant(project.status)}>{project.status}</Badge>
+                </div>
+                <Card.Subtitle className="mb-2 text-muted">
+                  Client ID: {project.client_id}
+                </Card.Subtitle>
+                <Card.Text>{project.description || "No description provided."}</Card.Text>
+                <hr />
+                <p><strong>Billing Type:</strong> {project.billing_type}</p>
+                <p><strong>Hourly Rate:</strong> {project.hourly_rate || "-"}</p>
+                <p><strong>Fixed Amount:</strong> {project.fixed_amount || "-"}</p>
+                <p><strong>Start Date:</strong> {project.start_date || "-"}</p>
+                <p><strong>End Date Estimated:</strong> {project.end_date_estimated || "-"}</p>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 }
-
-const styles = {
-  projectCard: {
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    padding: "15px",
-    margin: "10px auto",
-    maxWidth: "500px",
-    textAlign: "left",
-    backgroundColor: "#f5f5f5",
-  },
-};

@@ -25,3 +25,14 @@ export const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("user");
 };
+import axios from "axios";
+
+export const fetchAllProjectsPublic = () => {
+  const token = localStorage.getItem("token"); // or wherever you store it
+
+  return axios.get("http://localhost:5000/api/projects/all", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

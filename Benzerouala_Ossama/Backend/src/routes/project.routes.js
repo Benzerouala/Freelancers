@@ -1,15 +1,17 @@
-const express = require("express")
-const ProjectController = require("../controllers/project.controller")
-const authMiddleware = require("../middleware/auth.middleware")
+const express = require("express");
+const ProjectController = require("../controllers/project.controller");
+const authMiddleware = require("../middleware/auth.middleware");
 
-const router = express.Router()
+const router = express.Router();
 
-router.use(authMiddleware)
+// Public route
+router.get("/all", ProjectController.getAllPublic);
 
-router.post("/", ProjectController.create)
-router.get("/", ProjectController.getAll)
-router.get("/:id", ProjectController.getById)
-router.put("/:id", ProjectController.update)
-router.delete("/:id", ProjectController.delete)
+// Protected routes
+router.post("/", authMiddleware, ProjectController.create);
+router.get("/", authMiddleware, ProjectController.getAll);
+router.get("/:id", authMiddleware, ProjectController.getById);
+router.put("/:id", authMiddleware, ProjectController.update);
+router.delete("/:id", authMiddleware, ProjectController.delete);
 
-module.exports = router
+module.exports = router;
