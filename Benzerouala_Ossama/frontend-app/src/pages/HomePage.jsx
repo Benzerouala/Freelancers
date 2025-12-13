@@ -4,32 +4,46 @@ import Navbar from "../pages/Navbar";
 
 export default function HomePage() {
   return (
-    <div style={{ width: "100%", minHeight: "100vh", paddingTop: "70px" }}>
+    <>
       <Navbar />
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <h1>Bienvenue sur Mon Application</h1>
-        <p>Gérez vos clients, projets, tâches et notes facilement.</p>
-        <div style={{ marginTop: "20px" }}>
-          <Link to="/login" style={styles.button}>
-            Se connecter
-          </Link>
-          <Link to="/register" style={styles.button}>
-            S'inscrire
-          </Link>
+        <div
+      style={{
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+
+    
+      <div
+        className="container-fluid px-0 d-flex justify-content-center align-items-center"
+        style={{ minHeight: "calc(100vh - 70px)", marginTop: "70px" }}
+      >
+        <div
+          className="card shadow border-0 p-5 text-center"
+          style={{ maxWidth: "600px", width: "100%" }}
+        >
+          <h1 className="fw-bold mb-3">
+            Bienvenue sur Mon Application
+          </h1>
+
+          <p className="text-muted mb-4">
+            Gérez vos clients, projets, tâches et notes facilement depuis une
+            seule plateforme.
+          </p>
+
+          <div className="d-flex justify-content-center gap-3">
+            <Link to="/login" className="btn btn-primary px-4">
+              Se connecter
+            </Link>
+
+            <Link to="/register" className="btn btn-outline-primary px-4">
+              S'inscrire
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
-
-const styles = {
-  button: {
-    padding: "10px 20px",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    textDecoration: "none",
-    borderRadius: "5px",
-    fontWeight: "bold",
-    margin: "0 10px",
-  },
-};
